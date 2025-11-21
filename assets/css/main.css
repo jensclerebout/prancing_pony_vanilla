@@ -1,0 +1,53 @@
+/* =====================================
+   1. DESIGN TOKENS
+   ===================================== */
+
+:root {
+  /* Color Neutrals */
+  --neutral-50: 0 0% 98%;
+  --neutral-100: 0 0% 96%;
+  --neutral-300: 0 0% 85%;
+  --neutral-500: 0 0% 60%;
+  --neutral-700: 0 0% 30%;
+  --neutral-900: 0 0% 12%;
+
+  /* Color Primary */
+  --primary-300: 220 90% 75%;
+  --primary-500: 220 90% 55%;
+  --primary-700: 220 90% 35%;
+
+  /* Color Accent */
+  --accent-400: 30 85% 60%;
+  --accent-600: 30 85% 45%;
+
+  /* Custom Animation Curves */
+  --bezier-exp-out: cubic-bezier(0, 0, 0.75, 0);
+  --bezier-exp-in: cubic-bezier(0.25, 1, 1, 1);
+
+  /* Global spacing scale (for the rest of the site) */
+  --space-base: clamp(0.75rem, 1vw, 1.5rem);
+  --space-xs: calc(var(--space-base) * 0.5);
+  --space-s: calc(var(--space-base) * 1);
+  --space-m: calc(var(--space-base) * 1.5);
+  --space-l: calc(var(--space-base) * 2);
+  --space-xl: calc(var(--space-base) * 3);
+}
+
+
+/* =====================================
+   2. LAYOUT WRAPPERS
+   ===================================== */
+
+/* Centered content wrapper for everything AFTER the hero */
+.layout {
+  width: min(100% - 2rem, 1600px);
+  margin-inline: auto;
+  padding-block: var(--space-l);
+}
+
+/* You can add future global styles here later */
+
+/* TEMPORARY: allow scrolling until real content is added */
+.layout {
+  min-height: 200vh;
+}

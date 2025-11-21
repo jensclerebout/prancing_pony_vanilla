@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Prancing Pony B&B — cozy rooms, horses, and countryside activities." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/hero.css" />
+    <link rel="stylesheet" href="assets/css/nav.css" />
+    <script src="assets/js/hero.js" defer></script>
+    <script src="assets/js/navigation.js" defer></script>
+    <title>Prancing Pony</title>
+</head>
+
+<body>
+    <header class="header">
+        <nav id="main-nav" class="main-nav">
+            <!-- Brand + toggle row (will be used on mobile later) -->
+            <div class="main-nav__top">
+                <div class="main-nav__brand">
+                    The Prancing Pony
+                </div>
+                <button class="main-nav__toggle" type="button" aria-expanded="false" aria-controls="main-nav-list">
+                    <span class="main-nav__toggle-line"></span>
+                    <span class="main-nav__toggle-line"></span>
+                    <span class="main-nav__toggle-line"></span>
+                    <span class="main-nav__toggle-label">Menu</span>
+                </button>
+            </div>
+
+            <!-- Actual links -->
+            <ul class="main-nav__list" id="main-nav-list">
+                <li class="main-nav__list-item">
+                    <a href="index.html" class="main-nav__link main-nav__link--active">Home</a>
+                </li>
+                <li class="main-nav__list-item">
+                    <a href="rooms.html" class="main-nav__link">Rooms</a>
+                </li>
+                <li class="main-nav__list-item">
+                    <a href="activities.html" class="main-nav__link">Activities</a>
+                </li>
+                <li class="main-nav__list-item">
+                    <a href="contact.html" class="main-nav__link">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Full-width 16:9 hero -->
+    <section id="hero" class="hero" data-variant="standard">
+        <div class="hero__media" aria-hidden="true">
+            <!-- Variant 1: Standard -->
+            <picture class="hero__picture hero__picture--active" data-variant="standard">
+                <source srcset="assets/img/hero-standard-3200.webp" media="(min-width:2560px)">
+                <source srcset="assets/img/hero-standard-2400.webp" media="(min-width:1024px)">
+                <source srcset="assets/img/hero-standard-1600.webp" media="(min-width:480px)">
+                <img class="hero__img" src="assets/img/hero-standard-800.webp" alt="">
+            </picture>
+
+            <!-- Variant 2: Clouds -->
+            <picture class="hero__picture" data-variant="clouds">
+                <source srcset="assets/img/hero-clouds-3200.webp" media="(min-width:2560px)">
+                <source srcset="assets/img/hero-clouds-2400.webp" media="(min-width:1024px)">
+                <source srcset="assets/img/hero-clouds-1600.webp" media="(min-width:480px)">
+                <img class="hero__img" src="assets/img/hero-clouds-800.webp" alt="">
+            </picture>
+
+            <!-- Variant 3: Sun flare -->
+            <picture class="hero__picture" data-variant="sunflare">
+                <source srcset="assets/img/hero-sunflare-3200.webp" media="(min-width:2560px)">
+                <source srcset="assets/img/hero-sunflare-2400.webp" media="(min-width:1024px)">
+                <source srcset="assets/img/hero-sunflare-1600.webp" media="(min-width:480px)">
+                <img class="hero__img" src="assets/img/hero-sunflare-800.webp" alt="">
+            </picture>
+        </div>
+
+        <div class="hero__overlay">
+            <h1 class="hero__title">The Prancing Pony</h1>
+            <div class="hero__subtitle-wrapper">
+                <p class="hero__subtitle hero__subtitle--current">
+                    Warm hearth. Quiet fields.
+                </p>
+                <p class="hero__subtitle hero__subtitle--next"></p>
+            </div>
+            <div class="hero__view-button-wrapper" aria-label="Change view of the Prancing Pony">
+                <button class="hero__view-button hero__view-button--active" type="button" data-variant="standard"
+                    aria-pressed="true">
+                    Standard
+                </button>
+                <button class="hero__view-button" type="button" data-variant="clouds" aria-pressed="false">
+                    Cloudy
+                </button>
+                <button class="hero__view-button" type="button" data-variant="sunflare" aria-pressed="false">
+                    Sunny
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Centered content wrapper for the rest of the page -->
+    <main class="layout">
+        <section id="book">
+            <!-- Rest of your content here (rooms, booking, etc.) -->
+            <h2>Stay with us</h2>
+            <p>Cozy rooms, good food, and quiet countryside paths.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <!-- Footer content -->
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+/* =====================================
+   HEADER + NAV
+   ===================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  background: hsla(var(--neutral-900) / 0.85);
+  backdrop-filter: blur(8px);
+
+  padding: 0;
+
+  opacity: 0;
+  transform: translateY(-20px);
+  z-index: 10;
+
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease,
+    background 200ms ease;
+}
+
+.site--nav-visible .header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Desktop / default nav layout */
+.main-nav {
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+}
+
+/* Hide brand + burger on desktop by default */
+.main-nav__top {
+  display: none;
+  width: 100%;
+}
+
+/* Brand text (used on mobile; no-op on desktop) */
+.main-nav__brand {
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: hsl(var(--neutral-300));
+}
+
+/* Toggle button base style, but hidden on desktop */
+.main-nav__toggle {
+  display: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--neutral-300));
+}
+
+.main-nav__toggle-line {
+  width: 18px;
+  height: 2px;
+  background: hsl(var(--neutral-300));
+  border-radius: 999px;
+}
+
+.main-nav__toggle-label {
+  margin-top: 0.1rem;
+}
+
+/* Desktop links: center in a row */
+.main-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Nav links with animated underline */
+.main-nav__link {
+  position: relative;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1;
+
+  text-decoration: none;
+  color: hsl(var(--neutral-100));
+
+  padding-block: 0.25rem;
+}
+
+/* Underline, hidden by default */
+.main-nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background: hsl(var(--neutral-100));
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 200ms ease-out;
+}
+
+/* Hover + focus: show underline */
+.main-nav__link:hover::after,
+.main-nav__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Active page: always underlined + slightly bolder */
+.main-nav__link--active {
+  font-weight: 600;
+}
+
+.main-nav__link--active::after {
+  transform: scaleX(1);
+}
+
+
+/* =====================================
+   MOBILE NAV LAYOUT
+   ===================================== */
+
+@media (max-width: 768px) {
+  .main-nav {
+    width: 100%;
+    margin-inline: 1rem;
+
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Show brand + burger only on mobile */
+  .main-nav__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .main-nav__brand {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--neutral-300));
+  }
+
+  .main-nav__toggle {
+    display: flex;
+    /* becomes visible on mobile */
+  }
+
+  .main-nav__list {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .main-nav__link {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+
+/* =====================================
+   NAV OPEN OVERRIDE
+   ===================================== */
+
+/* When the mobile menu is open, keep header visible even if scroll
+   would normally hide it. JS toggles .site--nav-open on <body>. */
+body.site--nav-open .header {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
