@@ -15,7 +15,8 @@
   backdrop-filter: blur(8px);
 
   padding: 0;
-  padding-block: .75rem;
+  padding-block: 1rem;
+  /* desktop breathing room */
 
   opacity: 0;
   transform: translateY(-20px);
@@ -50,7 +51,7 @@
   width: 100%;
 }
 
-/* Brand text (used on mobile; no-op on desktop) */
+/* Brand text (used on mobile) */
 .main-nav__brand {
   font-size: 0.9rem;
   letter-spacing: 0.12em;
@@ -58,7 +59,7 @@
   color: hsl(var(--neutral-300));
 }
 
-/* Toggle button base style, but hidden on desktop */
+/* Toggle button base style, hidden on desktop */
 .main-nav__toggle {
   display: none;
   border: none;
@@ -73,13 +74,21 @@
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: hsl(var(--neutral-300));
+
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
+/* Hamburger lines base (desktop no-op; mobile overrides) */
 .main-nav__toggle-line {
+  display: block;
   width: 18px;
   height: 2px;
   background: hsl(var(--neutral-300));
   border-radius: 999px;
+
+  transition: transform 200ms ease, opacity 200ms ease;
+  transform-origin: center;
 }
 
 .main-nav__toggle-label {
@@ -88,7 +97,6 @@
 
 /* Desktop links: center in a row */
 .main-nav__list {
-  max-height: 0;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -147,16 +155,26 @@
 
 
 /* =====================================
-   MOBILE NAV LAYOUT
+   MOBILE (single block)
    ===================================== */
 
 @media (max-width: 768px) {
+
+  /* Slimmer header on mobile */
+  .header {
+    padding-block: 0.6rem;
+  }
+
+  /* 1) MOBILE BASE LAYOUT */
   .main-nav {
     width: 100%;
     margin-inline: 1rem;
 
+    display: flex;
     flex-direction: column;
     align-items: stretch;
+    justify-content: flex-start;
+    /* prevents vertical centering */
   }
 
   /* Show brand + burger only on mobile */
@@ -169,47 +187,65 @@
 
   .main-nav__brand {
     font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: hsl(var(--neutral-300));
   }
 
+  /* Toggle is a positioning box with a reserved icon zone */
   .main-nav__toggle {
     display: flex;
-    /* becomes visible on mobile */
+    position: relative;
+
+    width: 2.5rem;
+    height: auto;
+
+    padding-top: 1.4rem;
+    /* icon area */
+    padding-bottom: 0.25rem;
+    /* space under label */
+
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.3rem;
+    /* space before “Menu” label */
   }
 
+  /* Absolutely position the 3 lines inside the reserved icon zone */
+  .main-nav__toggle-line {
+    position: absolute;
+    left: 50%;
+    width: 1.125rem;
+    /* ~18px */
+    height: 0.125rem;
+    /* ~2px */
+    transform: translateX(-50%);
+  }
+
+  .main-nav__toggle-line:nth-child(1) {
+    top: 0.45rem;
+  }
+
+  .main-nav__toggle-line:nth-child(2) {
+    top: 0.7rem;
+  }
+
+  .main-nav__toggle-line:nth-child(3) {
+    top: 0.95rem;
+  }
+
+  /* Mobile list base layout */
   .main-nav__list {
     width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
-    margin-top: 0.75rem;
   }
 
   .main-nav__link {
     font-size: 0.9rem;
     letter-spacing: 0.1em;
   }
-}
 
 
-/* =====================================
-   NAV OPEN OVERRIDE
-   ===================================== */
-
-/* When the mobile menu is open, keep header visible even if scroll
-   would normally hide it. JS toggles .site--nav-open on <body>. */
-body.site--nav-open .header {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-/* =====================================
-   MOBILE: hide menu by default
-   ===================================== */
-
-@media (max-width: 768px) {
+  /* 2) MOBILE CLOSED STATE (default hidden) */
   .main-nav__list {
     max-height: 0;
     opacity: 0;
@@ -219,30 +255,98 @@ body.site--nav-open .header {
     margin-top: 0;
     gap: 0;
 
-    transition:
-      opacity 200ms ease-out;
+    transition: opacity 200ms ease-out;
+  }
+
+  .main-nav__list .main-nav__link {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 220ms ease-out, transform 220ms ease-out;
+  }
+
+  .main-nav__link--active {
+    color: hsl(var(--neutral-50));
+  }
+
+  .main-nav__link--active::after {
+    transform: scaleX(1);
+    background: hsl(var(--neutral-50));
+  }
+
+
+  /* 3) MOBILE OPEN STATE */
+  body.site--nav-open .main-nav {
+    height: 100dvh;
+    justify-content: flex-start;
   }
 
   body.site--nav-open .main-nav__list {
-    max-height: 100vh;
+    max-height: 100dvh;
     opacity: 1;
     pointer-events: auto;
 
     margin-top: 2rem;
     gap: 1.25rem;
+
+    overflow: visible;
   }
 
-  body.site--nav-open .main-nav {
+  body.site--nav-open .main-nav__list .main-nav__link {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
+  body.site--nav-open .main-nav__list li:nth-child(1) .main-nav__link {
+    transition-delay: 40ms;
+  }
+
+  body.site--nav-open .main-nav__list li:nth-child(2) .main-nav__link {
+    transition-delay: 80ms;
+  }
+
+  body.site--nav-open .main-nav__list li:nth-child(3) .main-nav__link {
+    transition-delay: 120ms;
+  }
+
+  body.site--nav-open .main-nav__list li:nth-child(4) .main-nav__link {
+    transition-delay: 160ms;
+  }
+
+  body.site--nav-open .main-nav__list li:nth-child(5) .main-nav__link {
+    transition-delay: 200ms;
+  }
+
+
+  /* 4) HAMBURGER → X */
+  body.site--nav-open .main-nav__toggle-line:nth-child(1),
+  body.site--nav-open .main-nav__toggle-line:nth-child(3) {
+    top: 0.7rem;
+    /* center of icon zone */
+  }
+
+  body.site--nav-open .main-nav__toggle-line:nth-child(1) {
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  body.site--nav-open .main-nav__toggle-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  body.site--nav-open .main-nav__toggle-line:nth-child(3) {
+    transform: translateX(-50%) rotate(-45deg);
+  }
+
+  /* 5) LOCK SCROLL + keep header visible */
+  body.site--nav-open .header {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  body.site--nav-open {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
     height: 100dvh;
-    justify-content: flex-start;
+    touch-action: none;
   }
-}
-
-body.site--nav-open {
-  position: fixed;
-  width: 100%;
-  overflow: hidden;
-  height: 100dvh;
-  touch-action: none;
 }

@@ -9,6 +9,7 @@
       toggleButton: null,
       navList: null,
       navLinks: [],
+      toggleLabel: null,
     },
 
     state: {
@@ -22,9 +23,9 @@
     init() {
       this.cacheElements();
       if (!this.elements.header || !this.elements.hero) return;
-
-      this.handleScroll(); // run once on load
+      this.highlightActiveLink();
       this.bindEvents();
+      this.handleScroll(); // run once on load
     },
 
     cacheElements() {
@@ -34,6 +35,9 @@
       this.elements.navList = document.querySelector('.main-nav__list');
       this.elements.navLinks = Array.from(
         document.querySelectorAll('.main-nav__link'),
+      );
+      this.elements.toggleLabel = document.querySelector(
+        '.main-nav__toggle-label',
       );
     },
 
@@ -73,9 +77,13 @@
     handleToggleClick() {
       const isOpen = document.body.classList.toggle('site--nav-open');
 
-      const { toggleButton } = this.elements;
+      const { toggleButton, toggleLabel } = this.elements;
       if (toggleButton) {
         toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+
+      if (toggleLabel) {
+        toggleLabel.textContent = isOpen ? 'Close' : 'Menu';
       }
     },
 
@@ -96,6 +104,27 @@
       if (toggleButton) {
         toggleButton.setAttribute('aria-expanded', 'false');
       }
+    },
+
+    highlightActiveLink() {
+      const current = window.location.pathname.replace(/\/$/, '');
+      // removes trailing slash so "/" becomes ""
+
+      this.elements.navLinks.forEach((link) => {
+        let href = link.getAttribute('href');
+        href = href.replace(/\/$/, ''); // normalize too
+
+        // Handle home page
+        if (current === '' && (href === '' || href.includes('index'))) {
+          link.classList.add('main-nav__link--active');
+          return;
+        }
+
+        // All other pages
+        if (href !== '' && current.endsWith(href)) {
+          link.classList.add('main-nav__link--active');
+        }
+      });
     },
 
     /* ================================
