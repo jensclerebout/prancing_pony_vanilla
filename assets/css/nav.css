@@ -203,3 +203,34 @@ body.site--nav-open .header {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+
+/* =====================================
+   MOBILE: hide menu by default
+   ===================================== */
+
+@media (max-width: 768px) {
+  .main-nav__list {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    transition:
+      max-height 250ms ease-out,
+      opacity 200ms ease-out;
+
+    margin-top: 0;
+    gap: 0;
+  }
+
+
+  body.site--nav-open .main-nav__list {
+    max-height: 500px;
+    /* big enough for your links */
+    opacity: 1;
+    pointer-events: auto;
+
+    margin-top: 2rem;
+    gap: 1.25rem;
+  }
+}
