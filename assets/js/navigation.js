@@ -8,6 +8,7 @@
       hero: null,
       toggleButton: null,
       navList: null,
+      navLinks: [],
     },
 
     state: {
@@ -31,6 +32,9 @@
       this.elements.hero = document.querySelector('.hero');
       this.elements.toggleButton = document.querySelector('.main-nav__toggle');
       this.elements.navList = document.querySelector('.main-nav__list');
+      this.elements.navLinks = Array.from(
+        document.querySelectorAll('.main-nav__link'),
+      );
     },
 
     /* ================================
@@ -83,6 +87,17 @@
       }
     },
 
+    handleNavLinkClick() {
+      // 1) Remove the open class
+      document.body.classList.remove('site--nav-open');
+
+      // 2) Keep aria state correct for accessibility
+      const { toggleButton } = this.elements;
+      if (toggleButton) {
+        toggleButton.setAttribute('aria-expanded', 'false');
+      }
+    },
+
     /* ================================
      * 4. EVENTS
      * ================================ */
@@ -91,10 +106,14 @@
       window.addEventListener('scroll', () => this.handleScroll());
       window.addEventListener('resize', () => this.handleScroll());
 
-      const { toggleButton } = this.elements;
+      const { toggleButton, navLinks } = this.elements;
       if (toggleButton) {
         toggleButton.addEventListener('click', () => this.handleToggleClick());
       }
+
+      navLinks.forEach((link) => {
+        link.addEventListener('click', () => this.handleNavLinkClick());
+      });
     },
   };
 
