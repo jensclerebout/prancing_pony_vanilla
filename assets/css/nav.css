@@ -88,6 +88,7 @@
 
 /* Desktop links: center in a row */
 .main-nav__list {
+  max-height: 0;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -215,22 +216,33 @@ body.site--nav-open .header {
     overflow: hidden;
     pointer-events: none;
 
-    transition:
-      max-height 250ms ease-out,
-      opacity 200ms ease-out;
-
     margin-top: 0;
     gap: 0;
+
+    transition:
+      opacity 200ms ease-out;
   }
 
-
   body.site--nav-open .main-nav__list {
-    max-height: 500px;
-    /* big enough for your links */
+    max-height: 100vh;
     opacity: 1;
     pointer-events: auto;
 
     margin-top: 2rem;
     gap: 1.25rem;
   }
+
+  body.site--nav-open .main-nav {
+
+    height: 100dvh;
+    justify-content: flex-start;
+  }
+}
+
+body.site--nav-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  height: 100dvh;
+  touch-action: none;
 }
